@@ -74,8 +74,8 @@ resource_fields = {
 
 class Url(Resource):
     @marshal_with(resource_fields)
-    def get(self, id):
-        result = Model.qerry.filter_by(id=id).all()
+    def get(self, data_id):
+        result = Model.qerry.filter_by(id=data_id).all()
         if not result:
             abort(404, message="Could not find data with that id")
         return result
@@ -96,7 +96,7 @@ class Url(Resource):
         return data, 201
 
 
-api.add_resource(Url, "/getorputdata/<int:data_id>")
+api.add_resource(Url, "/get_or_put_data/<int:data_id>")
 
 if __name__ == "__main__":
     app.run(debug=True)
