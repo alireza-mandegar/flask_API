@@ -9,21 +9,35 @@ db = SQLAlchemy(app)
 
 
 class Model(db.Model):
+    # id	integer : شناسه شاخص
     id = db.Column(db.Integer, primary_key=True)
+    # title	string : عنوان شاخص
     title = db.Column(db.String, nullable=False)
+    # slug	string : کلید شاخص
     slug = db.Column(db.String, nullable=False)
+    # p	integer : قیمت شاخص به ریال
     p = db.Column(db.Integer, nullable=False)
+    # d	integer : میزان تغییر
     d = db.Column(db.Integer, nullable=False)
+    # dp	integer : درصد تغییر
     dp = db.Column(db.Integer, nullable=False)
+    # dt	string : نوع تغییر
     dt = db.Column(db.String, nullable=False)
+    # o	integer : نرخ بازگشایی شاخص
     o = db.Column(db.Integer, nullable=False)
+    # h	integer : بالاترین نرخ امروز
     h = db.Column(db.Integer, nullable=False)
+    # l	integer : پایین ترین نرخ امروز
     l = db.Column(db.Integer, nullable=False)
+    # t	string : زمان آخرین نرخ به فرمت غیر ماشینی
     t = db.Column(db.String, nullable=False)
+    # updated_at	string($date-time) : زمان آخرین نرخ به فرمت دیتابیسی
     update_at = db.Column(db.String, nullable=False)
 
     def __repr__(self):
-        return f"model(id:{self.id}, title:{self.title}, slug:{self.slug}, p:{self.p}, d:{self.d}, dp:{self.dp}, dt:{self.dt}, o:{self.o}, h:{self.h}, l:{self.l}, t:{self.t}, updated_at:{self.update_at})"
+        return f"model(id:{self.id}, title:{self.title}, slug:{self.slug}, p:{self.p}, " \
+               f"d:{self.d}, dp:{self.dp}, dt:{self.dt}, o:{self.o}, h:{self.h}, " \
+               f"l:{self.l}, t:{self.t}, updated_at:{self.update_at})"
 
 
 # db.create_all() db has been created don't run this line
