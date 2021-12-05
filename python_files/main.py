@@ -32,12 +32,12 @@ class Model(db.Model):
     # t	string : زمان آخرین نرخ به فرمت غیر ماشینی
     t = db.Column(db.String, nullable=False)
     # updated_at	string($date-time) : زمان آخرین نرخ به فرمت دیتابیسی
-    update_at = db.Column(db.String, nullable=False)
+    updated_at = db.Column(db.String, nullable=False)
 
     def __repr__(self):
         return f"model(id:{self.id}, title:{self.title}, slug:{self.slug}, p:{self.p}, " \
                f"d:{self.d}, dp:{self.dp}, dt:{self.dt}, o:{self.o}, h:{self.h}, " \
-               f"l:{self.l}, t:{self.t}, updated_at:{self.update_at})"
+               f"l:{self.l}, t:{self.t}, updated_at:{self.updated_at})"
 
 
 # db.create_all() db has been created don't run this line
@@ -54,7 +54,7 @@ model_put_args.add_argument("o", type=int, help="o of model", required=True)
 model_put_args.add_argument("h", type=int, help="h of model", required=True)
 model_put_args.add_argument("l", type=int, help="l of model", required=True)
 model_put_args.add_argument("t", type=str, help="t of model", required=True)
-model_put_args.add_argument("update_at", type=str, help="update_at of model", required=True)
+model_put_args.add_argument("updated_at", type=str, help="updated_at of model", required=True)
 
 resource_fields = {
     'id': fields.Integer,
@@ -68,7 +68,7 @@ resource_fields = {
     'h': fields.Integer,
     'l': fields.Integer,
     't': fields.String,
-    'update_at': fields.String
+    'updated_at': fields.String
 }
 
 
@@ -82,7 +82,7 @@ class Url(Resource):
 
     @marshal_with(resource_fields)
     def put(self, data_id):
-        args = model_put_args()
+        args = model_put_args.parse_args()
         result = Model.query.filter_by(id=data_id).first()
         if result:
             abort(409, message="data id taken...")
@@ -90,7 +90,7 @@ class Url(Resource):
         data = Model(id=data_id, title=args['title'], slug=args['slug'],
                      p=args['p'], d=args['d'], dp=args['dp'], dt=args['dt'],
                      o=args['o'], h=args['h'], l=args['l'], t=args['t'],
-                     update_at=args['update_at'])
+                     updated_at=args['updated_at'])
         db.session.add(data)
         db.session.commit()
         return data, 201
