@@ -70,3 +70,22 @@ resource_fields = {
     't': fields.String,
     'update_at': fields.String
 }
+
+
+class Url(Resource):
+    @marshal_with(resource_fields)
+    def get(self, id):
+        result = Model.qerry.filter_by(id=id).all()
+        if not result:
+            abort(404, message="Could not find data with that id")
+        return result
+
+    @marshal_with(resource_fields)
+    def put(self, id):
+        pass
+
+
+api.add_resource(Url, "/getorputdata/<int:id>")
+
+if __name__ == "__main__":
+    app.run(debug=True)
