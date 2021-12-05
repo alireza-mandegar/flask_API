@@ -81,11 +81,22 @@ class Url(Resource):
         return result
 
     @marshal_with(resource_fields)
-    def put(self, id):
-        pass
+    def put(self, data_id):
+        args = model_put_args()
+        result = Model.query.filter_by(id=data_id).first()
+        if result:
+            abort(409, message="data id taken...")
+
+        data = Model(id=data_id, title=args['title'], slug=args['slug'],
+                     p=args['p'], d=args['d'], dp=args['dp'], dt=args['dt'],
+                     o=args['o'], h=args['h'], l=args['l'], t=args['t'],
+                     update_at=args['update_at'])
+        db.session.add(data)
+        db.session.commit()
+        return data, 201
 
 
-api.add_resource(Url, "/getorputdata/<int:id>")
+api.add_resource(Url, "/getorputdata/<int:data_id>")
 
 if __name__ == "__main__":
     app.run(debug=True)
