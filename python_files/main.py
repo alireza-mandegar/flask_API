@@ -27,3 +27,17 @@ class Model(db.Model):
 
 # db.create_all() db has been created don't run this line
 
+resource_fields = {
+	'id': fields.Integer,
+	'title': fields.String,
+	'slug': fields.String,
+	'p': fields.Integer,
+	'd': fields.Integer,
+	'dp': fields.Integer,
+    'dt': fields.String,
+    'o': fields.Integer,
+    'h': fields.Integer,
+    'l': fields.Integer,
+    't': fields.String,
+    'update_at': fields.String
+}
