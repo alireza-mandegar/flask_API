@@ -15,5 +15,6 @@ data = {
     "t": "string",
     "updated_at": "2021-12-05T09:33:51.083Z",
 }
-response = requests.put(BASE + "get_or_put_data/0", data)
+# response = requests.put(BASE + "get_or_put_data/0", data)
+response = requests.get(BASE + "get_or_put_data/0")
 print(response.json())
