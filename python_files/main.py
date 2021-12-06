@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 class Model(db.Model):
     index = db.Column(db.Integer, primary_key=True)
     # id	integer : شناسه شاخص
-    id = db.Column(db.Integer, primary_key=False)
+    id = db.Column(db.Integer, primary_key=False, nullable=False)
     # title	string : عنوان شاخص
     title = db.Column(db.String, nullable=False)
     # slug	string : کلید شاخص
