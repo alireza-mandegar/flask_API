@@ -9,8 +9,9 @@ db = SQLAlchemy(app)
 
 
 class Model(db.Model):
+    index = db.Column(db.Integer, primary_key=True)
     # id	integer : شناسه شاخص
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=False)
     # title	string : عنوان شاخص
     title = db.Column(db.String, nullable=False)
     # slug	string : کلید شاخص
@@ -75,7 +76,7 @@ resource_fields = {
 class Url(Resource):
     @marshal_with(resource_fields)
     def get(self, data_id):
-        result = Model.qerry.filter_by(id=data_id).all()
+        result = Model.query.filter_by(id=data_id).all()
         if not result:
             abort(404, message="Could not find data with that id")
         return result
